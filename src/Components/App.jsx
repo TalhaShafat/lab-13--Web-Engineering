@@ -35,13 +35,23 @@ export default function App() {
     );
   }
 
+  function addGuest(guestData) {
+    const newGuest = {
+      id: Math.max(...guests.map(g => g.id), 0) + 1,
+      ...guestData,
+      confirmed: false,
+      rsvp: false
+    };
+    setGuests((prev) => [...prev, newGuest]);
+  }
+
   useEffect(() => {
     console.log("Guests updated:", guests);
   }, [guests]);
 
   return (
     <>
-      <GuestForm />
+      <GuestForm onAddGuest={addGuest} />
       <GuestSummary guests={guests} />
 
       {/* Conditional Rendering */}
